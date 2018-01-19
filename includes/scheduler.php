@@ -34,7 +34,7 @@ add_action('bdt_thirty_min_worker','thirty_min_hook');
  */
 function fifteen_min_hook(){
 	$setting = get_option('mbh_bounce_config',[]); // get the settings value from database 
-	file_put_contents(__DIR__.'/fired.txt', print_r( $setting, true ));
+	
 	// check if essential values are set else return false. 
 	if ( !isset($setting['login']) && !isset($setting['password']) && !isset($setting['hostname']) ){
 		return false;

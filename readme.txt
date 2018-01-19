@@ -5,7 +5,7 @@ Donate link: http://www.tikweb.dk/donate/
 Requires at least: 4.6
 Tested up to: 4.9
 Requires PHP: 5.2
-Stable tag: 1.3.2
+Stable tag: 1.3.3
 
 Automatic mail bounce handling for MailPoet 3 to handle bounce emails easily when using your own SMTP server.
 
@@ -58,6 +58,9 @@ There are 3 ways to install this plugin:
 1. Bounce Handling Settings Page
 
 == Changelog ==
+
+= 1.3.3 – 2018-01-01 =
+* Code for creating the text file is to debug scheduler has been removed from the schedule.php
 
 = 1.3.2 – 2017-11-22 =
 * Updated include/class-mailpoet-bounce-handler.php
