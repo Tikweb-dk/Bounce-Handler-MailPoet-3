@@ -284,7 +284,7 @@ if(!class_exists('Mailpoet_Bounce_Handler')){
 										<option value="unsub" <?php selected( $mna_cond, 'unsub' ); ?>>Unsubscribe The User</option>
 										<option value="mna_addOrRemove" <?php selected( $mna_cond, 'mna_addOrRemove' ); ?>><?php _e('Disregard current list','bounce-handler-mailpoet'); ?></option>
 									</select>
-									<?php $mna_add_remove = isset($bounce['mna_add_remove']) ? $bounce['mna_add_remove'] : ''; ?>
+									<?php $mna_add_remove = isset($bounce['mna_add_remove']) ? $bounce['mna_add_remove'] : 'do_nothing'; ?>
 									<span class="hidden" id="mna-unsub-wraper">
 										<?php _e('and','bounce-handler-mailpoet');?> 
 										<select name="bounce[mna_add_remove]" id="bounce[mna_add_remove]">
