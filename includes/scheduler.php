@@ -8,7 +8,7 @@ use MailPoet\Models\Setting;
  */
 function thirty_min_hook(){
 
-	$setting = Setting::getValue('bounce_config'); // get the settings value from database 
+	$setting = get_option('mbh_bounce_config',[]); // get the settings value from database 
 
 	// check if essential values are set else return false. 
 	if ( !isset($setting['login']) && !isset($setting['password']) && !isset($setting['hostname']) ){
@@ -33,8 +33,8 @@ add_action('bdt_thirty_min_worker','thirty_min_hook');
  * @return [type] [description]
  */
 function fifteen_min_hook(){
-	$setting = Setting::getValue('bounce_config'); // get the settings value from database 
-
+	$setting = get_option('mbh_bounce_config',[]); // get the settings value from database 
+	file_put_contents(__DIR__.'/fired.txt', print_r( $setting, true ));
 	// check if essential values are set else return false. 
 	if ( !isset($setting['login']) && !isset($setting['password']) && !isset($setting['hostname']) ){
 		return false;
@@ -56,7 +56,7 @@ add_action('bdt_fifteen_min_worker','fifteen_min_hook');
 
 function hourly_bc_hook(){
 
-	$setting = Setting::getValue('bounce_config'); // get the settings value from database 
+	$setting = get_option('mbh_bounce_config',[]); // get the settings value from database 
 
 	// check if essential values are set else return false. 
 	if ( !isset($setting['login']) && !isset($setting['password']) && !isset($setting['hostname']) ){
@@ -78,7 +78,7 @@ add_action('bdt_hourly_worker','hourly_bc_hook');
 
 function two_hourly_bc_hook(){
 
-	$setting = Setting::getValue('bounce_config'); // get the settings value from database 
+	$setting = get_option('mbh_bounce_config',[]); // get the settings value from database 
 
 	// check if essential values are set else return false. 
 	if ( !isset($setting['login']) && !isset($setting['password']) && !isset($setting['hostname']) ){
@@ -100,7 +100,7 @@ add_action('bdt_two_hourly_worker','two_hourly_bc_hook');
 
 function daily_bc_hook(){
 
-	$setting = Setting::getValue('bounce_config'); // get the settings value from database 
+	$setting = get_option('mbh_bounce_config',[]); // get the settings value from database 
 
 	// check if essential values are set else return false. 
 	if ( !isset($setting['login']) && !isset($setting['password']) && !isset($setting['hostname']) ){
@@ -123,7 +123,7 @@ add_action('bdt_daily_worker','daily_bc_hook');
 
 function twicedaily_bc_hook(){
 
-	$setting = Setting::getValue('bounce_config'); // get the settings value from database 
+	$setting = get_option('mbh_bounce_config',[]); // get the settings value from database 
 
 	// check if essential values are set else return false. 
 	if ( !isset($setting['login']) && !isset($setting['password']) && !isset($setting['hostname']) ){

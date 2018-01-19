@@ -290,7 +290,7 @@ if(!class_exists('Mailpoet_Bounce_Handler')){
 										<select name="bounce[mna_add_remove]" id="bounce[mna_add_remove]">
 											<option value="add" <?php selected( $mna_add_remove,'add' ); ?>><?php _e('Add','bounce-handler-mailpoet');?></option>
 											<option value="remove" <?php selected( $mna_add_remove,'remove' ); ?>><?php _e('Remove','bounce-handler-mailpoet');?></option>
-											<option value="do_nothing" <?php selected( $mf_add_remove,'do_nothing' ); ?>><?php _e('Do nothing more','bounce-handler-mailpoet');?></option>
+											<option value="do_nothing" <?php selected( $mna_add_remove,'do_nothing' ); ?>><?php _e('Do nothing more','bounce-handler-mailpoet');?></option>
 										</select>
 										<span id="mna-hide-on-nothing">
 										<?php $mna_list = isset($bounce['mna_list']) ? $bounce['mna_list'] : ''; ?>
