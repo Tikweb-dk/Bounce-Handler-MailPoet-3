@@ -311,7 +311,7 @@ class BounceDetect {
         	$this->servername .= '/ssl';
         }
 
-        if ( $this->settings->self_signed_certificates ) {
+        if ( $this->settings->self_signed_certificates == '0' ) {
         	$this->servername .= '/novalidate-cert';
         }
 

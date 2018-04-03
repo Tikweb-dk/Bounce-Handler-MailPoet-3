@@ -120,7 +120,6 @@ if(!class_exists('Mailpoet_Handle_Bounces')){
 
 	        if(!empty($protocol)) $serverName .='/service=' . $protocol; // Set connection method
         	$serverName .= '}'; //End server name
-
         	$login = trim($this->bounce_form_data['login']);
 	        $password = trim($this->bounce_form_data['password']);
         	$mailbox = imap_open($serverName, $login, $password);

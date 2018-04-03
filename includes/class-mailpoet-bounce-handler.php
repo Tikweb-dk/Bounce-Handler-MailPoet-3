@@ -108,7 +108,7 @@ if(!class_exists('Mailpoet_Bounce_Handler')){
 												<li><?php _e('Fill out the form below so we can connect to it.', 'bounce-handler-mailpoet'); ?></li>  
 												<li><?php _e('Take it easy, the plugin does the rest.', 'bounce-handler-mailpoet'); ?></li>
 											</ol>
-											<p class="description"><?php $desc = __('Need help? Check out <a href="%s" target="_blank">our guide</a> on how to fill out the form.', ''); printf($desc, 'http://www.tikweb.dk/mail-bounce-handler/'); ?></p>
+											<p class="description"><?php $desc = __('Need help? Check out <a href="%s" target="_blank">our guide</a> on how to fill out the form.', 'bounce-handler-mailpoet'); printf($desc, 'http://www.tikweb.dk/mail-bounce-handler/'); ?></p>
 										</div>
 									</tr>
 									<tr>
@@ -116,8 +116,9 @@ if(!class_exists('Mailpoet_Bounce_Handler')){
 											<label for="bounce[address]"><?php _e('Bounce Email', 'bounce-handler-mailpoet'); ?></label>
 										</th>
 										<td>
+											<span class="mbh-help" title="<?php _e('Please set a single dedicated bounce address for bounce email, for example bounce@mailpoet.com','bounce-handler-mailpoet'); ?>"></span>
 											<input size="52" type="text" id="bounce[address]" name="bounce[address]" value="<?php echo isset($bounce['address']) ? $bounce['address'] : ''; ?>"><br/>
-											<label for="bounce[address]"><i>Please set a single dedicated bounce address for bounce email, for example bounce@mailpoet.com</i></label>
+											<label for="bounce[address]"><i><?php _e('Please set a single dedicated bounce address for bounce email, for example bounce@mailpoet.com','bounce-handler-mailpoet'); ?></i></label>
 										</td>
 									</tr>
 									<tr>
@@ -125,6 +126,7 @@ if(!class_exists('Mailpoet_Bounce_Handler')){
 											<label for="bounce[hostname]"><?php _e('Hostname', 'bounce-handler-mailpoet'); ?></label>
 										</th>
 										<td>
+											<span class="mbh-help" title="<?php _e('Host name of your mail server','bounce-handler-mailpoet'); ?>"></span>
 											<input size="52" type="text" id="bounce[hostname]" name="bounce[hostname]" value="<?php $this->show_value($bounce['hostname']); ?>">
 										</td>
 									</tr>
@@ -133,6 +135,7 @@ if(!class_exists('Mailpoet_Bounce_Handler')){
 											<label for="bounce[login]"><?php _e('Login', 'bounce-handler-mailpoet'); ?></label>
 										</th>
 										<td>
+											<span class="mbh-help" title="<?php _e('Email address','bounce-handler-mailpoet'); ?>"></span>
 											<input size="52" type="text" id="bounce[login]" name="bounce[login]" value="<?php $this->show_value($bounce['login']); ?>">
 										</td>
 									</tr>
@@ -147,6 +150,7 @@ if(!class_exists('Mailpoet_Bounce_Handler')){
 													$password = mbh_encrypt_decrypt('decrypt', $bounce['password']); 
 												}
 											?>
+											<span class="mbh-help" title="<?php _e('Password for bounce email.','bounce-handler-mailpoet');?>"></span>
 											<input size="52" type="password" id="bounce[password]" name="bounce[password]" value="<?php echo $password; ?>">
 										</td>
 									</tr>
@@ -155,6 +159,16 @@ if(!class_exists('Mailpoet_Bounce_Handler')){
 											<label for="bounce[port]"><?php _e('Port', 'bounce-handler-mailpoet'); ?></label>
 										</th>
 										<td>
+											<span class="mbh-help" data-tooltip-content="#port-help"></span>
+											<div class="tooltip_templates">
+												<span id="port-help">
+													<strong>Set a port number for connection</strong><br/>
+													If you don't set port number than by default<br/>
+													<strong>143</strong> set for <strong>IMAP</strong> connection<br/>
+													<strong>110</strong> set for <strong>POP3</strong> connection<br/>
+
+												</span>
+											</div>
 											<input size="10" type="text" id="bounce[port]" name="bounce[port]" value="<?php $this->show_value($bounce['port']); ?>">
 										</td>
 									</tr>
@@ -164,6 +178,7 @@ if(!class_exists('Mailpoet_Bounce_Handler')){
 										</th>
 										<td>
 											<?php $conn_method = isset($bounce['connection_method']) ? $bounce['connection_method'] : ''; ?>
+											<span class="mbh-help" title="<?php _e('Choose the best method to connect your mail server','bounce-handler-mailpoet'); ?>"></span>
 											<select name="bounce[connection_method]" id="bounce[connection_method]">
 												<option value="pop3" <?php selected($conn_method, 'pop3'); ?> >POP3</option>
 												<option value="imap" <?php selected($conn_method, 'imap'); ?> >IMAP</option>
@@ -177,7 +192,16 @@ if(!class_exists('Mailpoet_Bounce_Handler')){
 											<label><?php _e('Secure connection(SSL)', 'bounce-handler-mailpoet'); ?></label>
 										</th>
 										<td>
+
 											<p>
+												<span class="mbh-help" data-tooltip-content="#secure-con-help"></span>
+												<span class="tooltip_templates">
+													<span id="secure-con-help">
+														<strong>Set Yes</strong> if you want secure connection between this server to your mailserver.<br/>
+														<strong>Set NO</strong> if you want a plain connection between this server to your mailserver.<br/>
+														<i style="color:yellow;">Note: You must verify wheather your mailserver support secure connection or not.<br/>If your mailserver not support secure connection please set <strong>No</strong> for this option.</i>
+													</span>
+												</span>
 												<?php $conn_secure = isset($bounce['secure_connection']) ? $bounce['secure_connection'] : '0'; ?>
 												<label><input type="radio" name="bounce[secure_connection]" value="0" <?php checked($conn_secure, '0'); ?> ><?php _e('No', 'bounce-handler-mailpoet'); ?></label>
 												<label><input type="radio" name="bounce[secure_connection]" value="1" <?php checked($conn_secure, '1'); ?> ><?php _e('Yes', 'bounce-handler-mailpoet'); ?></label>
@@ -190,6 +214,13 @@ if(!class_exists('Mailpoet_Bounce_Handler')){
 										</th>
 										<td>
 											<p>
+												<span class="mbh-help" data-tooltip-content="#self-signed-help"></span>
+												<span class="tooltip_templates">
+													<span id="self-signed-help">
+														If your mailserver support Self Signed Certificate than set Yes, otherwise No.<br/>
+														<i style="color:yellow;"><strong>Note:</strong> for all common server option "No" will work, most of the time.</i>
+													</span>
+												</span>
 												<?php $Self_signed = isset($bounce['self_signed_certificates']) ? $bounce['self_signed_certificates'] : '0'; ?>
 												<label><input type="radio" name="bounce[self_signed_certificates]" value="0" <?php checked($Self_signed, '0'); ?> ><?php _e('No', 'bounce-handler-mailpoet'); ?></label>
 												<label><input type="radio" name="bounce[self_signed_certificates]" value="1" <?php checked($Self_signed, '1'); ?> ><?php _e('Yes', 'bounce-handler-mailpoet'); ?></label>
@@ -198,7 +229,9 @@ if(!class_exists('Mailpoet_Bounce_Handler')){
 									</tr>
 									<tr>
 										<td scope="row" class="left-padding-off">
+
 											<label class="activate-bounce-label">
+												<span class="mbh-help" title="<?php _e('Activate bounce check scheduler','bounce-handler-mailpoet'); ?>"></span>
 												<?php $bounce_check = isset($bounce['activate_bounce_check']) ? $bounce['activate_bounce_check'] : '0'; ?>
 												<input type="checkbox" value="1" name="bounce[activate_bounce_check]" <?php checked($bounce_check, '1'); ?> id="activate_bounce_check">
 												<?php _e('Activate bounce and check every...', 'bounce-handler-mailpoet'); ?>
@@ -218,6 +251,7 @@ if(!class_exists('Mailpoet_Bounce_Handler')){
 									</tr>
 									<tr>
 										<td scope="row" class="left-padding-off">
+											<span class="mbh-help" title="<?php _e('Check if your credentials are working before bounce handling','bounce-handler-mailpoet'); ?>"></span>
 											<button class="button" type="button" id="check-bounce-connection"><?php _e('Does it work? Try to connect.', 'bounce-handler-mailpoet'); ?></button>
 										</td>
 										<td><!-- Nothing goes here --></td>
@@ -432,6 +466,7 @@ if(!class_exists('Mailpoet_Bounce_Handler')){
 				//Stylesheet
 				wp_enqueue_style('mailpoet-admin-style', plugins_url('/assets/css/admin.css',dirname(__FILE__)));
 				wp_enqueue_style('mbh-datatables', plugins_url('/assets/css/jquery.dataTables.min.css',dirname(__FILE__)));
+				wp_enqueue_style( 'mbh-tooltip-style', plugins_url('/assets/css/tooltipster.bundle.min.css',__DIR__));
 
 				//Scripts
 				wp_enqueue_script('vendor-mailpoet', plugins_url('/assets/js/vendor.js',dirname(__FILE__)), array(), null, true);
@@ -439,6 +474,7 @@ if(!class_exists('Mailpoet_Bounce_Handler')){
 				wp_enqueue_script('admin_vendor-mailpoet', plugins_url('/assets/js/admin_vendor.js',dirname(__FILE__)), array(), null, true);
 				wp_enqueue_script('admin-mailpoet', plugins_url('/assets/js/admin.js',dirname(__FILE__)), array(), null, true);
 				wp_enqueue_script('mbh-datatables', plugins_url('/assets/js/jquery.dataTables.min.js',__DIR__), array('jquery'),'1.11', false);
+				wp_enqueue_script( 'mbh-tooltip', plugins_url('/assets/js/tooltipster.bundle.min.js',__DIR__), array( 'jquery' ), '1.12', false );
 			}
 		} // End of enqueue_scripts
 		
@@ -970,7 +1006,10 @@ if(!class_exists('Mailpoet_Bounce_Handler')){
 								return false;
 							}
 							datatableSearch( reson );
-						});
+						}); 
+
+						// enable tooltip
+						$('.mbh-help').tooltipster();
 
 					}); // Dom Loaded End
 				});
