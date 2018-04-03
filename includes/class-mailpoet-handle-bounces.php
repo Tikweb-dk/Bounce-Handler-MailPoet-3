@@ -116,7 +116,7 @@ if(!class_exists('Mailpoet_Handle_Bounces')){
 	        if(!empty($secure)) $serverName .= '/' . $secure;
 
 	        //if self signed
-	        if($selfsigned) $serverName .= '/novalidate-cert';
+	        if(!$selfsigned) $serverName .= '/novalidate-cert';
 
 	        if(!empty($protocol)) $serverName .='/service=' . $protocol; // Set connection method
         	$serverName .= '}'; //End server name
