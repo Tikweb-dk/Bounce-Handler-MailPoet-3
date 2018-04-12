@@ -41,10 +41,16 @@ if(!class_exists('Mailpoet_Handle_Bounces')){
 		public function mbh_check_bounce_connection()
 		{
 			header('Content-Type: application/json');
+			
 			$return_data = array();
+			
+			$_POST = wp_unslash( $_POST );
+
 			if(isset($_POST['data']['bounce']) && is_array($_POST['data']['bounce'])){
+				
 				$bounce = $_POST['data']['bounce'];
 				$this->bounce_form_data = $bounce;
+				
 				if($bounce['connection_method'] == 'pear'){ // Check connection method
 					$return_data = $this->pear_connection_check();
 				}else{
@@ -120,9 +126,12 @@ if(!class_exists('Mailpoet_Handle_Bounces')){
 
 	        if(!empty($protocol)) $serverName .='/service=' . $protocol; // Set connection method
         	$serverName .= '}'; //End server name
+
         	$login = trim($this->bounce_form_data['login']);
 	        $password = trim($this->bounce_form_data['password']);
+
         	$mailbox = imap_open($serverName, $login, $password);
+
         	// If connection problem;
         	if(!$mailbox){
         		$return_data['error'] = true;

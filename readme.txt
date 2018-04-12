@@ -5,7 +5,7 @@ Donate link: http://www.tikweb.dk/donate/
 Requires at least: 4.6
 Tested up to: 4.9
 Requires PHP: 5.2
-Stable tag: 1.3.4
+Stable tag: 1.3.5
 
 Automatic mail bounce handling for MailPoet 3 to handle bounce emails easily when using your own SMTP server.
 
@@ -59,50 +59,18 @@ There are 3 ways to install this plugin:
 
 == Changelog ==
 
-= 1.3.4 – 2018-01-19 =
-* Fixed the changing unsubscriber issue after save and when leave the page.
+= 1.3.5 - 2018-04-04 =
+* Fixed the "Secure connection(SSL)" and "Self-signed certificates" issues.
+  
+  Settings for Secure connection(SSL):
+  - Set Yes, if you want secure connection between this server to your mailserver.
+  - Set NO, if you want a plain connection between this server to your mailserver.
 
-= 1.3.3 – 2018-01-01 =
-* Code for creating the text file is to debug scheduler has been removed from the schedule.php
+  Settings for Self-signed certificates:
+  - If your mailserver support Self Signed Certificate than set Yes, otherwise set No.
 
-= 1.3.2 – 2017-11-22 =
-* Updated include/class-mailpoet-bounce-handler.php
 
-= 1.3.1 – 2017-11-22 =
-* To fixed Settings option key name that is affected cron system.
-
-= 1.3.0 – 2017-11-07 =
-* To fixed Actions & Notifications settings
-* To added more effective functions in the Bounce Logs tab
-	- To added log list dropdown
-	- To added new filter for bounce reasons
-	- Each coulmns are now sorting by clicking the column header.
-
-= 1.2.2 – 2017-10-13 =
-* Updated new dropdown named "Disregard current list" and fixed the functionalities.
-
-= 1.2.1 – 2017-09-29 =
-* On the Actions & Notifications tab, the fifth item [[Add/remove on another list] on the dropdowns for mail box full and mailbox not available.
-* When it is selected, it will show the same three extra dropdown as for “Unsubscribe the user”
-
-= 1.2.0 – 2017-09-29 =
-* On the Actions & Notifications tab, the two dropdowns for mailbox full and mailbox is not available split into 4 dropdowns each. 
-
-Older version 1.1.2: [Unsubscribe the user and add him to the list “xxx”]
-Version 1.2.0: [Unsubscribe the user] and [add/remove] him for the list [xxx] as [Subscribed/Unconfirmed/Unsubscribed/Bounced] 
-
-= 1.1.2 =
-* The error functions have been improved more than before in the version 1.1.2. 
-
-= 1.1.1 =
-* Fixed the PHP warning issue in the version 1.1.0. 
-
-= 1.1.0 =
-* Bounced email logger add. Now you can check list of email those were bounced.
-* Bounce checker output buffering improved.
-
-= 1.0.0 =
-* Initial release.
+[Changelog](https://plugins.svn.wordpress.org/bounce-handler-mailpoet/trunk/changelog.txt)
 
 == Upgrade Notice ==
 

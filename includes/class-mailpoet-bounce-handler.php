@@ -151,7 +151,7 @@ if(!class_exists('Mailpoet_Bounce_Handler')){
 												}
 											?>
 											<span class="mbh-help" title="<?php _e('Password for bounce email.','bounce-handler-mailpoet');?>"></span>
-											<input size="52" type="password" id="bounce[password]" name="bounce[password]" value="<?php echo $password; ?>">
+											<input size="52" type="password" id="bounce[password]" name="bounce[password]" value="<?php echo htmlspecialchars($password); ?>">
 										</td>
 									</tr>
 									<tr>
@@ -199,7 +199,7 @@ if(!class_exists('Mailpoet_Bounce_Handler')){
 													<span id="secure-con-help">
 														<strong>Set Yes</strong> if you want secure connection between this server to your mailserver.<br/>
 														<strong>Set NO</strong> if you want a plain connection between this server to your mailserver.<br/>
-														<i style="color:yellow;">Note: You must verify wheather your mailserver support secure connection or not.<br/>If your mailserver not support secure connection please set <strong>No</strong> for this option.</i>
+														<i><strong>Note: You must verify wheather your mailserver support secure connection or not.<br/>If your mailserver not support secure connection please set No for this option.</strong></i>
 													</span>
 												</span>
 												<?php $conn_secure = isset($bounce['secure_connection']) ? $bounce['secure_connection'] : '0'; ?>
@@ -218,7 +218,7 @@ if(!class_exists('Mailpoet_Bounce_Handler')){
 												<span class="tooltip_templates">
 													<span id="self-signed-help">
 														If your mailserver support Self Signed Certificate than set Yes, otherwise No.<br/>
-														<i style="color:yellow;"><strong>Note:</strong> for all common server option "No" will work, most of the time.</i>
+														<i><strong>Note:</strong> for all common server option "No" will work, most of the time.</i>
 													</span>
 												</span>
 												<?php $Self_signed = isset($bounce['self_signed_certificates']) ? $bounce['self_signed_certificates'] : '0'; ?>
@@ -494,6 +494,8 @@ if(!class_exists('Mailpoet_Bounce_Handler')){
 			header('Content-Type: application/json');
 			$return_data = array();
 			$error = array();
+
+			$_POST = wp_unslash( $_POST );
 
 			if(wp_verify_nonce($_POST['nonce'], '_tikweb_mailpoet_')){ // Check nonce
 				if(isset($_POST['data']['bounce']) && is_array($_POST['data']['bounce'])){ // Check bounce is set and array

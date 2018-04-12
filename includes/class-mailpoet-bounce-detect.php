@@ -70,6 +70,7 @@ class BounceDetect {
      * @return void 
      */
 	public function connect(){
+		
 		imap_timeout(IMAP_OPENTIMEOUT,120);
 		$this->mailbox = imap_open($this->servername, $this->settings->login, mbh_encrypt_decrypt('decrypt',$this->settings->password));
 
