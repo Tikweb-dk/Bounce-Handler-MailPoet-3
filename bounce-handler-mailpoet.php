@@ -5,7 +5,7 @@ if(!defined('ABSPATH')) exit;
 /**
  * Plugin Name:       Bounce Handler Mailpoet
  * Description:       Bounce Handler Mailpoet is an add-on for MailPoet 3 to handle bounce emails easily, when using your own SMTP server.
- * Version:           1.3.5
+ * Version:           1.3.10
  * Author:            Tikweb
  * Author URI:        http://www.tikweb.dk/
  * License:           GPL-2.0+
@@ -143,3 +143,8 @@ require_once MBH_ROOT_PATH . 'includes/scheduler.php';
  * Bounce handler logger file
  */
 require_once MBH_ROOT_PATH.'includes/mbh-logger.php';
+
+/**
+ * GDPR Personal Data Exporter
+ */
+require_once MBH_ROOT_PATH .'includes/personal-data-exporter.php';

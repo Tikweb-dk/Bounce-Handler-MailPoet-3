@@ -142,9 +142,7 @@ class Net_Socket extends PEAR
         $openfunc = $this->persistent ? 'pfsockopen' : 'fsockopen';
         $errno    = 0;
         $errstr   = '';
-
-        $old_track_errors = @ini_set('track_errors', 1);
-
+        
         if ($options && function_exists('stream_context_create')) {
             if ($this->timeout) {
                 $timeout = $this->timeout;
@@ -178,14 +176,15 @@ class Net_Socket extends PEAR
         }
 
         if (!$fp) {
-            if ($errno == 0 && !strlen($errstr) && isset($php_errormsg)) {
-                $errstr = $php_errormsg;
+
+            if ($errno == 0 && !strlen($errstr) ) {
+                $errstr = json_encode(error_get_last());
             }
-            @ini_set('track_errors', $old_track_errors);
+
             return $this->raiseError($errstr, $errno);
         }
 
-        @ini_set('track_errors', $old_track_errors);
+        
         $this->fp = $fp;
 
         return $this->setBlocking($this->blocking);

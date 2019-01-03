@@ -5,7 +5,7 @@ Donate link: http://www.tikweb.dk/donate/
 Requires at least: 4.6
 Tested up to: 4.9
 Requires PHP: 5.2
-Stable tag: 1.3.5
+Stable tag: 1.3.10
 
 Automatic mail bounce handling for MailPoet 3 to handle bounce emails easily when using your own SMTP server.
 
@@ -59,15 +59,8 @@ There are 3 ways to install this plugin:
 
 == Changelog ==
 
-= 1.3.5 - 2018-04-04 =
-* Fixed the "Secure connection(SSL)" and "Self-signed certificates" issues.
-  
-  Settings for Secure connection(SSL):
-  - Set Yes, if you want secure connection between this server to your mailserver.
-  - Set NO, if you want a plain connection between this server to your mailserver.
-
-  Settings for Self-signed certificates:
-  - If your mailserver support Self Signed Certificate than set Yes, otherwise set No.
+= 1.3.10 - 2018-12-06 =
+* Add bulk or single log delete option to empty the bounce handler logs
 
 
 [Changelog](https://plugins.svn.wordpress.org/bounce-handler-mailpoet/trunk/changelog.txt)
