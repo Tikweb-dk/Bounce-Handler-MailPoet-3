@@ -1,6 +1,6 @@
 <?php
 
-abstract class MBH_Logger {
+class MBH_Logger {
 
     static $primary_key = 'id';
 
@@ -25,8 +25,8 @@ abstract class MBH_Logger {
 
         $ret = array();
 
-        if ( $start === '' ){
-            $start = 10;
+        if ( $start === '' || $start === null ){
+            $start = 0;
         }
 
         if ( empty($limit) ){
@@ -48,8 +48,8 @@ abstract class MBH_Logger {
 
         $ret = array();
 
-        if ( $start === '' ){
-            $start = 10;
+        if ( $start === '' || $start === null ){
+            $start = 0;
         }
 
         if ( empty($limit) ){
