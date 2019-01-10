@@ -1,5 +1,8 @@
 == Changelog ==
 
+= 1.3.10 - 2018-12-06 =
+* Add bulk or single log delete option to empty the bounce handler logs
+
 = 1.3.9 - 2018-07-06 =
 * GDPR Compatibility - Plugin is now connected to the WordPress v4.9.6 “Personal Data Exporter” and “Personal Data Eraser”. The log data considered sensitive for the GDPR many issues, tha's why it will be deleted if the user performs the Personal Data Eraser.
 
