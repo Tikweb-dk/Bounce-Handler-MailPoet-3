@@ -101,7 +101,7 @@ If the online system have not generated a language pack for your language, it is
 == Changelog ==
 
 = 1.3.11 - 2018-01-10 =
-* Fix : Adds missing .pot file for translation.
+* Fix : Adds missing files and information for translation. 
 
 
 [Changelog](https://plugins.svn.wordpress.org/bounce-handler-mailpoet/trunk/changelog.txt)
