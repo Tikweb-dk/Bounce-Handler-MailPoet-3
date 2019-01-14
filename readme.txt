@@ -73,7 +73,7 @@ To become PTE, you simply request it at the Polyglots forum.
 We suggest you use the example below - exchange xx_XX with your locale (ex. da_DK for danish in Denmark) and XXXXX with your wordpress.org username (ex. mine is kasperta). If your language have several different locales, add an extra line with that locale.
 So copy and paste the text below to a new post at https://make.wordpress.org/polyglots/ - and edit locale + user name, and soon you may approve your own translations :-)
 ---beginning of forum post---
-Hello Polyglots, I have added translations for <a href="https://wordpress.org/plugins/add-on-woocommerce-mailpoet/">Add-on WooCommerce – MailPoet 3</a> and would like to become the Project Translation Editor (PTE) for my language.
+Hello Polyglots, I have added translations for <a href="https://wordpress.org/plugins/bounce-handler-mailpoet/">Bounce Handler Mailpoet 3</a> and would like to become the Project Translation Editor (PTE) for my language.
 Please add my WordPress.org user as Project Translation Editor (PTE) for the respective locales:
 o #xx_XX – @XXXXX
 If you have any questions, just comment here. Thank you!
