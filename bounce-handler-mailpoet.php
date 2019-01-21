@@ -3,9 +3,9 @@
 if(!defined('ABSPATH')) exit;
 
 /**
- * Plugin Name:       Bounce Handler Mailpoet 3
- * Description:       Bounce Handler Mailpoet 3 is an add-on for MailPoet 3 to handle bounce emails easily, when using your own SMTP server.
- * Version:           1.3.11
+ * Plugin Name:       Bounce Handler Mailpoet
+ * Description:       Bounce Handler Mailpoet is an add-on for MailPoet 3 to handle bounce emails easily, when using your own SMTP server.
+ * Version:           1.3.12
  * Author:            Tikweb
  * Author URI:        http://www.tikweb.dk/
  * License:           GPL-2.0+
@@ -116,6 +116,17 @@ if(!is_plugin_active('mailpoet/mailpoet.php')){
 	});
 	return;	// If not then return
 }
+
+/*
+* Load Wp list table class
+ */
+if( ! class_exists( 'WP_List_Table' ) ) {
+    require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
+}
+/*
+* load log table class
+ */
+require_once MBH_ROOT_PATH . 'includes/class-mailpoet-bounce-log.php';
 
 /**
  * The core plugin class
