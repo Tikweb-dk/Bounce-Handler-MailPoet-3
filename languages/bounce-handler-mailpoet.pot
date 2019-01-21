@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-10 06:01+0000\n"
+"POT-Creation-Date: 2019-01-21 06:29+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -53,8 +53,8 @@ msgstr ""
 msgid "Set status bounced"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-detect.php:416 
-#: includes/class-mailpoet-bounce-detect.php:424 
+#: includes/class-mailpoet-bounce-detect.php:416
+#: includes/class-mailpoet-bounce-detect.php:424
 #: includes/class-mailpoet-bounce-detect.php:432
 msgid "no destination set to forward this"
 msgstr ""
@@ -83,7 +83,8 @@ msgstr ""
 msgid "[MailPoet] Mail didn't detect as bounced. "
 msgstr ""
 
-#: includes/class-mailpoet-bounce-detect.php:660 includes/rules.php:6
+#: includes/class-mailpoet-bounce-detect.php:660
+#: includes/class-mailpoet-bounce-log.php:41 includes/rules.php:6
 msgid "Mailbox Full"
 msgstr ""
 
@@ -95,8 +96,8 @@ msgstr ""
 msgid "Mailbox not available"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-detect.php:667 
-#: includes/class-mailpoet-bounce-handler.php:316 includes/rules.php:13
+#: includes/class-mailpoet-bounce-detect.php:667
+#: includes/class-mailpoet-bounce-handler.php:352 includes/rules.php:13
 msgid "When mailbox is not available"
 msgstr ""
 
@@ -128,8 +129,8 @@ msgstr ""
 msgid "Blocked IP"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-detect.php:691 
-#: includes/class-mailpoet-bounce-handler.php:363 includes/rules.php:37
+#: includes/class-mailpoet-bounce-detect.php:691
+#: includes/class-mailpoet-bounce-handler.php:399 includes/rules.php:37
 msgid "When you are flagged as a spammer forward the bounced message to"
 msgstr ""
 
@@ -141,363 +142,384 @@ msgstr ""
 msgid "When the bounce is weird and we're not sure what to do, forward to:"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:54 
-#: includes/class-mailpoet-bounce-handler.php:86
+#: includes/class-mailpoet-bounce-handler.php:90
+#: includes/class-mailpoet-bounce-handler.php:122
 msgid "Bounce Handling"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:95
+#: includes/class-mailpoet-bounce-handler.php:131
 msgid "Settings"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:96
+#: includes/class-mailpoet-bounce-handler.php:132
 msgid "Actions & Notifications"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:97
+#: includes/class-mailpoet-bounce-handler.php:133
 msgid "Log"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:106
+#: includes/class-mailpoet-bounce-handler.php:142
 msgid "How does it work?"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:108
+#: includes/class-mailpoet-bounce-handler.php:144
 msgid "Create an email account dedicated solely to bounce handling."
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:109
+#: includes/class-mailpoet-bounce-handler.php:145
 msgid "Fill out the form below so we can connect to it."
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:110
+#: includes/class-mailpoet-bounce-handler.php:146
 msgid "Take it easy, the plugin does the rest."
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:112
+#: includes/class-mailpoet-bounce-handler.php:148
 #, php-format
 msgid ""
 "Need help? Check out <a href=\"%s\" target=\"_blank\">our guide</a> on how "
 "to fill out the form."
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:117
+#: includes/class-mailpoet-bounce-handler.php:153
 msgid "Bounce Email"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:120 
-#: includes/class-mailpoet-bounce-handler.php:122
+#: includes/class-mailpoet-bounce-handler.php:156
+#: includes/class-mailpoet-bounce-handler.php:158
 msgid ""
 "Please set a single dedicated bounce address for bounce email, for example "
 "bounce@mailpoet.com"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:127
+#: includes/class-mailpoet-bounce-handler.php:163
 msgid "Hostname"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:130
+#: includes/class-mailpoet-bounce-handler.php:166
 msgid "Host name of your mail server"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:136
+#: includes/class-mailpoet-bounce-handler.php:172
 msgid "Login"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:139
+#: includes/class-mailpoet-bounce-handler.php:175
 msgid "Email address"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:145
+#: includes/class-mailpoet-bounce-handler.php:181
 msgid "Password"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:154
+#: includes/class-mailpoet-bounce-handler.php:190
 msgid "Password for bounce email."
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:160
+#: includes/class-mailpoet-bounce-handler.php:196
 msgid "Port"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:178
+#: includes/class-mailpoet-bounce-handler.php:214
 msgid "Connection method"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:182
+#: includes/class-mailpoet-bounce-handler.php:218
 msgid "Choose the best method to connect your mail server"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:193
+#: includes/class-mailpoet-bounce-handler.php:229
 msgid "Secure connection(SSL)"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:207 
-#: includes/class-mailpoet-bounce-handler.php:226
+#: includes/class-mailpoet-bounce-handler.php:243
+#: includes/class-mailpoet-bounce-handler.php:262
 msgid "No"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:208 
-#: includes/class-mailpoet-bounce-handler.php:227
+#: includes/class-mailpoet-bounce-handler.php:244
+#: includes/class-mailpoet-bounce-handler.php:263
 msgid "Yes"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:214
+#: includes/class-mailpoet-bounce-handler.php:250
 msgid "Self-signed certificates"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:235
+#: includes/class-mailpoet-bounce-handler.php:271
 msgid "Activate bounce check scheduler"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:238
+#: includes/class-mailpoet-bounce-handler.php:274
 msgid "Activate bounce and check every..."
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:244
+#: includes/class-mailpoet-bounce-handler.php:280
 msgid "15 minutes"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:245
+#: includes/class-mailpoet-bounce-handler.php:281
 msgid "30 minutes"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:246
+#: includes/class-mailpoet-bounce-handler.php:282
 msgid "1 hour"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:247
+#: includes/class-mailpoet-bounce-handler.php:283
 msgid "2 hours"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:248
+#: includes/class-mailpoet-bounce-handler.php:284
 msgid "Twice daily"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:249
+#: includes/class-mailpoet-bounce-handler.php:285
 msgid "Day"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:255
+#: includes/class-mailpoet-bounce-handler.php:291
 msgid "Check if your credentials are working before bounce handling"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:256
+#: includes/class-mailpoet-bounce-handler.php:292
 msgid "Does it work? Try to connect."
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:263 
-#: includes/class-mailpoet-bounce-handler.php:372
+#: includes/class-mailpoet-bounce-handler.php:299
+#: includes/class-mailpoet-bounce-handler.php:408
 msgid "Save Changes"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:270
+#: includes/class-mailpoet-bounce-handler.php:306
 msgid ""
 "There are plenty of reasons for bounces. Configure what to do in each "
 "scenario."
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:273
+#: includes/class-mailpoet-bounce-handler.php:309
 msgid "When mailbox is full after 3 tries"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:276 
-#: includes/class-mailpoet-bounce-handler.php:319
+#: includes/class-mailpoet-bounce-handler.php:312
+#: includes/class-mailpoet-bounce-handler.php:355
 msgid "Do nothing"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:277 
-#: includes/class-mailpoet-bounce-handler.php:320
+#: includes/class-mailpoet-bounce-handler.php:313
+#: includes/class-mailpoet-bounce-handler.php:356
 msgid "Delete the user"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:278 
-#: includes/class-mailpoet-bounce-handler.php:321
+#: includes/class-mailpoet-bounce-handler.php:314
+#: includes/class-mailpoet-bounce-handler.php:357
 msgid "Change status to 'Bounced'"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:279
+#: includes/class-mailpoet-bounce-handler.php:315
 msgid "Unsubscribe The User"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:280 
-#: includes/class-mailpoet-bounce-handler.php:323
+#: includes/class-mailpoet-bounce-handler.php:316
+#: includes/class-mailpoet-bounce-handler.php:359
 msgid "Disregard current list"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:284 
-#: includes/class-mailpoet-bounce-handler.php:327
+#: includes/class-mailpoet-bounce-handler.php:320
+#: includes/class-mailpoet-bounce-handler.php:363
 msgid "and"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:286 
-#: includes/class-mailpoet-bounce-handler.php:329
+#: includes/class-mailpoet-bounce-handler.php:322
+#: includes/class-mailpoet-bounce-handler.php:365
 msgid "Add"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:287 
-#: includes/class-mailpoet-bounce-handler.php:330
+#: includes/class-mailpoet-bounce-handler.php:323
+#: includes/class-mailpoet-bounce-handler.php:366
 msgid "Remove"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:288 
-#: includes/class-mailpoet-bounce-handler.php:331
+#: includes/class-mailpoet-bounce-handler.php:324
+#: includes/class-mailpoet-bounce-handler.php:367
 msgid "Do nothing more"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:292 
-#: includes/class-mailpoet-bounce-handler.php:335
+#: includes/class-mailpoet-bounce-handler.php:328
+#: includes/class-mailpoet-bounce-handler.php:371
 msgid "him for the list"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:301 
-#: includes/class-mailpoet-bounce-handler.php:344
+#: includes/class-mailpoet-bounce-handler.php:337
+#: includes/class-mailpoet-bounce-handler.php:380
 msgid "No List Found"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:305 
-#: includes/class-mailpoet-bounce-handler.php:348
+#: includes/class-mailpoet-bounce-handler.php:341
+#: includes/class-mailpoet-bounce-handler.php:384
 msgid "as"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:307 
-#: includes/class-mailpoet-bounce-handler.php:350
+#: includes/class-mailpoet-bounce-handler.php:343
+#: includes/class-mailpoet-bounce-handler.php:386
 msgid "Subscriber"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:308 
-#: includes/class-mailpoet-bounce-handler.php:351
+#: includes/class-mailpoet-bounce-handler.php:344
+#: includes/class-mailpoet-bounce-handler.php:387
 msgid "Bounced"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:309 
-#: includes/class-mailpoet-bounce-handler.php:352
+#: includes/class-mailpoet-bounce-handler.php:345
+#: includes/class-mailpoet-bounce-handler.php:388
 msgid "Unconfirmed"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:310 
-#: includes/class-mailpoet-bounce-handler.php:353
+#: includes/class-mailpoet-bounce-handler.php:346
+#: includes/class-mailpoet-bounce-handler.php:389
 msgid "Unsubscriber"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:359
+#: includes/class-mailpoet-bounce-handler.php:395
 msgid "When you need to confirm you're a human being, forward to"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:367
+#: includes/class-mailpoet-bounce-handler.php:403
 msgid "When the bounce is weird and we're not sure what to do, forward to"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:380
+#: includes/class-mailpoet-bounce-handler.php:424
 msgid "Bounce Logs"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:387
-msgid "Bounced Email"
-msgstr ""
-
-#: includes/class-mailpoet-bounce-handler.php:388
-msgid "Bounced Reason"
-msgstr ""
-
-#: includes/class-mailpoet-bounce-handler.php:389
-msgid "Last Checked"
-msgstr ""
-
-#: includes/class-mailpoet-bounce-handler.php:413
+#: includes/class-mailpoet-bounce-handler.php:450
 msgid "Process bounce handling now!"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:520
+#: includes/class-mailpoet-bounce-handler.php:551
 msgid "Please set a valid email address for bounce email."
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:526
+#: includes/class-mailpoet-bounce-handler.php:557
 msgid "Please set a valid email address for actions!"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:532
+#: includes/class-mailpoet-bounce-handler.php:563
 msgid ""
 "Please set a valid email address for forward rules when you need to confirm "
 "you're a human being."
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:538
+#: includes/class-mailpoet-bounce-handler.php:569
 msgid ""
 "Please set a valid email address for forward rules when you are flagged as a "
 "spammer."
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:544
+#: includes/class-mailpoet-bounce-handler.php:575
 msgid ""
 "Please set a valid email address for forward rules when the bounce is weird "
 "and we're not sure what to do."
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:610 
-#: includes/class-mailpoet-bounce-handler.php:614 
-#: includes/class-mailpoet-bounce-handler.php:627 
-#: includes/class-mailpoet-bounce-handler.php:632
+#: includes/class-mailpoet-bounce-handler.php:641
+#: includes/class-mailpoet-bounce-handler.php:645
+#: includes/class-mailpoet-bounce-handler.php:658
+#: includes/class-mailpoet-bounce-handler.php:663
 msgid "Unable to save data."
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:872
+#: includes/class-mailpoet-bounce-handler.php:897
 msgid "Settings saved"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:904
+#: includes/class-mailpoet-bounce-handler.php:929
 msgid "Error occurred, unable to save data."
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:914
+#: includes/class-mailpoet-bounce-handler.php:939
 msgid "Bounce handling connection test"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:956
+#: includes/class-mailpoet-bounce-handler.php:981
 msgid "Error occurred, unable to check connection."
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:979
+#: includes/class-mailpoet-bounce-handler.php:1004
 msgid "Bounce Detection"
 msgstr ""
 
-#: includes/class-mailpoet-bounce-handler.php:1023
-msgid "Delete"
-msgstr ""
-
-#: includes/class-mailpoet-bounce-handler.php:1040
-msgid "Page"
-msgstr ""
-
-#: includes/class-mailpoet-bounce-handler.php:1040
-msgid "of"
-msgstr ""
-
-#: includes/class-mailpoet-bounce-handler.php:1041
-msgid "No logs found"
-msgstr ""
-
-#: includes/class-mailpoet-bounce-handler.php:1042
-msgid "Show"
-msgstr ""
-
-#: includes/class-mailpoet-bounce-handler.php:1042
-msgid "Logs."
-msgstr ""
-
-#: includes/class-mailpoet-bounce-handler.php:1044
-msgid "Previous"
-msgstr ""
-
-#: includes/class-mailpoet-bounce-handler.php:1045
-msgid "Next"
-msgstr ""
-
-#: includes/class-mailpoet-bounce-handler.php:1078
+#: includes/class-mailpoet-bounce-handler.php:1043
+#: includes/class-mailpoet-bounce-handler.php:1064
 msgid "Are you sure you want to delete this item?"
 msgstr ""
 
-#: includes/personal-data-exporter.php:23 
+#: includes/class-mailpoet-bounce-handler.php:1096
+msgid "Are you sure you want to delete all item?"
+msgstr ""
+
+#: includes/class-mailpoet-bounce-handler.php:1157
+#: includes/class-mailpoet-bounce-log.php:13
+msgid "Search"
+msgstr ""
+
+#: includes/class-mailpoet-bounce-log.php:12
+msgid "Delete All"
+msgstr ""
+
+#: includes/class-mailpoet-bounce-log.php:27
+msgid "Logs per page"
+msgstr ""
+
+#: includes/class-mailpoet-bounce-log.php:28
+#: includes/class-mailpoet-bounce-log.php:29
+msgid "Show"
+msgstr ""
+
+#: includes/class-mailpoet-bounce-log.php:39
+msgid "All"
+msgstr ""
+
+#: includes/class-mailpoet-bounce-log.php:40
+msgid "Mailbox Not Available"
+msgstr ""
+
+#: includes/class-mailpoet-bounce-log.php:42
+msgid "Message Delayed"
+msgstr ""
+
+#: includes/class-mailpoet-bounce-log.php:43
+msgid "Weird Forward"
+msgstr ""
+
+#: includes/class-mailpoet-bounce-log.php:44
+#: includes/class-mailpoet-bounce-log.php:45
+msgid "Filter"
+msgstr ""
+
+#: includes/class-mailpoet-bounce-log.php:104
+msgid "ID"
+msgstr ""
+
+#: includes/class-mailpoet-bounce-log.php:105
+msgid "Email"
+msgstr ""
+
+#: includes/class-mailpoet-bounce-log.php:106
+msgid "Reason"
+msgstr ""
+
+#: includes/class-mailpoet-bounce-log.php:107
+msgid "Last Checked"
+msgstr ""
+
+#: includes/class-mailpoet-bounce-log.php:193
+#: includes/class-mailpoet-bounce-log.php:200
+msgid "Delete"
+msgstr ""
+
+#: includes/personal-data-exporter.php:23
 #: includes/personal-data-exporter.php:38
 msgid "Mailpoet Bounce Handler"
 msgstr ""
