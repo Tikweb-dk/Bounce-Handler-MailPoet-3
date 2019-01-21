@@ -2922,3 +2922,23 @@ textarea.parsley-error {
 .tooltip_templates{
   display : none;
 }
+[data-tab="log-table"].mailpoet_panel .subsubsub{
+  width: 100%;
+}
+[data-tab="log-table"].mailpoet_panel .search{
+  float: right;
+  background: inherit;
+}
+[data-tab="log-table"].mailpoet_panel #search-submit{
+  margin-left: 5px;
+}
+[data-tab="log-table"].mailpoet_panel .show{
+  color: transparent;
+}
+[data-tab="log-table"].mailpoet_panel .custom-show{
+  display: inline-block;
+  float: left;
+}
+[data-tab="log-table"].mailpoet_panel .filter{
+  margin: 0 0 0 10px;
+}
