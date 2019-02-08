@@ -132,12 +132,7 @@ require_once MBH_ROOT_PATH . 'includes/class-mailpoet-bounce-log.php';
  * The core plugin class
  * that is used to define Admin page and settings.
  */
-if( version_compare( MAILPOET_VERSION, '3.19.0', '>=' ) ){
-    require_once MBH_ROOT_PATH . 'includes/class-mailpoet-bounce-handler.php';
-}else{
-    require_once MBH_ROOT_PATH . 'includes/class-mailpoet-bounce-handler-legacy.php';
-}
-
+require_once MBH_ROOT_PATH . 'includes/class-mailpoet-bounce-handler.php';
 
 /**
  * The bounce handling class
