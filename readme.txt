@@ -100,9 +100,8 @@ If the online system have not generated a language pack for your language, it is
 
 == Changelog ==
 
-= 1.3.12 - 2018-01-21 =
-* Fix : Bounce Logs.
-
+= 1.3.13 - 2019-02-08 =
+* Fixed : Empty bounce handler settings page after mailpoet v3.19.0 update.
 
 [Changelog](https://plugins.svn.wordpress.org/bounce-handler-mailpoet/trunk/changelog.txt)
 
