@@ -10,12 +10,12 @@
  */
 
 use MailPoet\Models\Setting;
-use MailPoet\Settings\SettingsController as Settings;
+use MailPoet\Settings\SettingsController;
 use MailPoet\Models\Segment;
 
 if(!class_exists('Mailpoet_Bounce_Handler')){
 
-	class Mailpoet_Bounce_Handler 
+	class Mailpoet_Bounce_Handler
 	{
 		/**
 		 * Properties
@@ -111,8 +111,7 @@ if(!class_exists('Mailpoet_Bounce_Handler')){
 			$this->necessary_css();
             $bounce = get_option('mbh_bounce_config');
 
-            $settings = new Settings();//mailpoet settings object
-
+            $settings = new SettingsController();//mailpoet settings object
             $mailpoet_conf_bounce_address = $settings->get('bounce.address');
 
 			if ( isset($mailpoet_conf_bounce_address) && !empty($mailpoet_conf_bounce_address) ){
@@ -633,7 +632,7 @@ if(!class_exists('Mailpoet_Bounce_Handler')){
 						
 						if($save == true){ // Data saved
 
-                            $settings = new Settings();//mailpoet settings
+                            $settings = new SettingsController();//mailpoet settings
                             $mailpoet_conf_bounce_address = $settings->get('bounce.address');
 
 							if ( !empty($bounce['address']) ){

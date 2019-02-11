@@ -57,11 +57,11 @@ if(!defined('MAILPOET_ROOT_URL')){
 /**
  * If php version is lower
  */
-if(version_compare(phpversion(), '5.4', '<')){
+if(version_compare(phpversion(), '5.6.0', '<')){
 	function mailpoet_bh_php_version_notice(){
 		?>
 		<div class="error">
-			<p><?php _e('MailPoet plugin requires PHP version 5.4 or newer, Please upgrade your PHP.', 'bounce-handler-mailpoet'); ?></p>
+			<p><?php _e('MailPoet plugin requires PHP version 5.6.0 or newer, Please upgrade your PHP.', 'bounce-handler-mailpoet'); ?></p>
 		</div>
 		<?php
 	}
