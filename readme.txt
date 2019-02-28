@@ -3,7 +3,7 @@ Contributors: kasperta
 Tags: newsletter, mail, email, emailing, mailpoet, bounce handler, bounce email, automatic, tikweb
 Donate link: http://www.tikweb.dk/donate/
 Requires at least: 4.6
-Tested up to: 5.0.3
+Tested up to: 5.1
 Requires PHP: 5.6.0
 Stable tag: 1.3.13
 
@@ -99,9 +99,6 @@ If the online system have not generated a language pack for your language, it is
 1. Bounce Handling Settings Page
 
 == Changelog ==
-
-= 1.3.13 - 2019-02-11 =
-* Fixed : Empty bounce handler settings page after mailpoet v3.19.0 update.
 
 [Changelog](https://plugins.svn.wordpress.org/bounce-handler-mailpoet/trunk/changelog.txt)
 
