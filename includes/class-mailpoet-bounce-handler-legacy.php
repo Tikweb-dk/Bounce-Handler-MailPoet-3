@@ -1,28 +1,26 @@
 <?php
 /**
- * The core plugin class.
- * This is new after mailpoet v3.19.0
- * @since      1.3.13
- * @since      mailpoet v1.19.0
+ * The core plugin class. (Legacy)
+ * This is deprecated since mailpoet v3.19.0
+ * @since      1.0.0
  * @package    Bounce Handler Mailpoet
  * @subpackage bounce-handler-mailpoet/includes
  * @author     Tikweb <kasper@tikjob.dk>
  */
 
 use MailPoet\Models\Setting;
-use MailPoet\Settings\SettingsController;
 use MailPoet\Models\Segment;
 
 if(!class_exists('Mailpoet_Bounce_Handler')){
 
-	class Mailpoet_Bounce_Handler
+	class Mailpoet_Bounce_Handler 
 	{
 		/**
 		 * Properties
 		 */
-        protected $page_name = 'mailpoet_page_mailpoet_bounce_handling';
-
-        /**
+		protected $page_name = 'mailpoet_page_mailpoet_bounce_handling';
+		
+		/**
 		 * Initialize the class
 		 */
 		public static function init()
@@ -45,43 +43,7 @@ if(!class_exists('Mailpoet_Bounce_Handler')){
 			// Ajax request
 			add_action('wp_ajax_mbh_save_bounce_settings', array($this, 'mbh_save_bounce_settings')); // Save bounce page settings
 			add_action('wp_ajax_bounce_handler_logs',array($this,'bounce_handler_logs'));
-			add_action('wp_ajax_mbh_delete_all_bounce_log', array($this, 'mbh_delete_all_bounce_log')); // Save bounce log delete all
-
-			add_action('wp_ajax_mbh_delete_log_func', array($this, 'mbh_delete_log_func'));
-            add_action('wp_ajax_mbh_delete_log_bulk_func', array($this, 'mbh_delete_log_bulk_func'));
-		}
-
-
-		public function mbh_delete_log_func()
-		{
-			if(wp_verify_nonce($_POST['nonce'], '_tikweb_mbh_delete_log_func')){
-				global $wpdb;
-				$logTable = $wpdb->prefix . 'bounced_email_logs';
-				$wpdb->query(
-					$wpdb->prepare(
-						"DELETE FROM {$logTable} 
-						WHERE id={$_POST['data']}",
-						1
-					)
-				);
-				wp_die();
-			}
-		}
-		public function mbh_delete_log_bulk_func()
-		{
-			if(wp_verify_nonce($_POST['nonce'], '_tikweb_mbh_delete_log_bulk_func')){
-				global $wpdb;
-				$ids = '('. implode(',', $_POST['data']) . ')';
-				$logTable = $wpdb->prefix . 'bounced_email_logs';
-				$wpdb->query(
-					$wpdb->prepare(
-						"DELETE FROM {$logTable} 
-						WHERE id in {$ids}",
-						count($_POST['data'])
-					)
-				);
-				wp_die();
-			}
+			add_action('wp_ajax_mbh_delete_bounce_log', array($this, 'mbh_delete_bounce_log')); // Save bounce page settings
 		}
 
 		/**
@@ -109,13 +71,12 @@ if(!class_exists('Mailpoet_Bounce_Handler')){
 		public function bounce_handler_page()
 		{
 			$this->necessary_css();
-            $bounce = get_option('mbh_bounce_config');
+			$bounce = get_option('mbh_bounce_config');
 
-            $settings = new SettingsController();//mailpoet settings object
-            $mailpoet_conf_bounce_address = $settings->get('bounce.address');
+			$mailpoet_conf = Setting::getValue('bounce');
 
-			if ( isset($mailpoet_conf_bounce_address) && !empty($mailpoet_conf_bounce_address) ){
-				$bounce['address'] = $mailpoet_conf_bounce_address;
+			if ( isset($mailpoet_conf['address']) && !empty($mailpoet_conf['address']) ){
+				$bounce['address'] = $mailpoet_conf['address'];
 			}
 
 			?>
@@ -134,7 +95,7 @@ if(!class_exists('Mailpoet_Bounce_Handler')){
 						<h2 class="nav-tab-wrapper" id="mailpoet_settings_tabs">
 					        <a class="nav-tab nav-tab-active" href="#settings"><?php _e('Settings', 'bounce-handler-mailpoet'); ?></a>
 							<a class="nav-tab" href="#actions"><?php _e('Actions & Notifications', 'bounce-handler-mailpoet'); ?></a>
-							<a class="nav-tab" href="#log-table"><?php _e('Log', 'bounce-handler-mailpoet'); ?></a>
+							<a class="nav-tab" href="#logs" id="mbh_logs"><?php _e('Log', 'bounce-handler-mailpoet'); ?></a>
 					    </h2>
 
 					    <!-- Settings -->
@@ -415,23 +376,22 @@ if(!class_exists('Mailpoet_Bounce_Handler')){
 						</div> <!-- End of data-tab="actions" -->
 					</form>
 
-						
-
-					<!-- Bouce log table with wp list table -->
-					<div data-tab="log-table" class="mailpoet_panel">
-
-						<?php 
-						$bounceTable = new Mailpoet_Bounce_Log();
-						$bounceTable->prepare_items();
-						?>
-					    <div class="wrap">
+						<!-- Bounce Log Tab Rendar -->
+						<div data-tab="logs" class="mailpoet_panel">
 							<h2><?php _e('Bounce Logs','bounce-handler-mailpoet'); ?></h2>
-							<?php 
-							$bounceTable->views();
-				            $bounceTable->display();
-				            ?>
-						</div>
-					<!-- end bouce log table with wp list table -->
+							<hr>
+							<table id="bounce-log" class="display" cellspacing="0" width="100%">
+							        <thead>
+							            <tr>
+							            	<th><span class="dashicons dashicons-marker"></span></th>
+							                <th>#ID</th>
+							                <th><?php _e('Bounced Email','bounce-handler-mailpoet'); ?></th>
+							                <th><?php _e('Bounced Reason','bounce-handler-mailpoet'); ?></th>
+							                <th><?php _e('Last Checked','bounce-handler-mailpoet'); ?></th>
+							            </tr>
+							        </thead>
+							</table>
+						</div> <!-- End Bounce Log Tab -->
 
 			    </div> <!-- /#mailpoet_settings -->
 			    
@@ -514,6 +474,9 @@ if(!class_exists('Mailpoet_Bounce_Handler')){
 			if($this->page_name == $page){
 				//Stylesheet
 				wp_enqueue_style('mailpoet-admin-style', plugins_url('/assets/css/admin.css',dirname(__FILE__)));
+				wp_enqueue_style('mbh-datatables', plugins_url('/assets/css/jquery.dataTables.min.css',dirname(__FILE__)));
+				wp_enqueue_style('mbh-datatables-select-css', plugins_url('/assets/css/select.dataTables.min.css',dirname(__FILE__)));
+				wp_enqueue_style('mbh-datatables-button-css', plugins_url('/assets/css/buttons.dataTables.min.css',dirname(__FILE__)));
 				wp_enqueue_style( 'mbh-tooltip-style', plugins_url('/assets/css/tooltipster.bundle.min.css',__DIR__));
 
 				//Scripts
@@ -521,6 +484,9 @@ if(!class_exists('Mailpoet_Bounce_Handler')){
 				wp_enqueue_script('mailpoet-mailpoet',plugins_url('/assets/js/mailpoet.js',dirname(__FILE__)), array(), null, true);
 				wp_enqueue_script('admin_vendor-mailpoet', plugins_url('/assets/js/admin_vendor.js',dirname(__FILE__)), array(), null, true);
 				wp_enqueue_script('admin-mailpoet', plugins_url('/assets/js/admin.js',dirname(__FILE__)), array(), null, true);
+				wp_enqueue_script('mbh-datatables', plugins_url('/assets/js/jquery.dataTables.min.js',__DIR__), array('jquery'),'1.11', true);
+				wp_enqueue_script('mbh-datatables-select-js', plugins_url('/assets/js/dataTables.select.min.js',__DIR__), array('mbh-datatables'),'1.2.7', true);
+				wp_enqueue_script('mbh-datatables-button-js', plugins_url('/assets/js/dataTables.buttons.min.js',__DIR__), array('mbh-datatables'),'1.5.2', true);
 				wp_enqueue_script( 'mbh-tooltip', plugins_url('/assets/js/tooltipster.bundle.min.js',__DIR__), array( 'jquery' ), '1.12', false );
 			}
 		} // End of enqueue_scripts
@@ -632,13 +598,12 @@ if(!class_exists('Mailpoet_Bounce_Handler')){
 						
 						if($save == true){ // Data saved
 
-                            $settings = new SettingsController();//mailpoet settings
-                            $mailpoet_conf_bounce_address = $settings->get('bounce.address');
+							$mailpoet_conf = Setting::getValue('bounce');
 
 							if ( !empty($bounce['address']) ){
-								if ( trim($mailpoet_conf_bounce_address) != trim($bounce['address']) ){
-									$mailpoet_conf_bounce_address = $bounce['address'];
-                                    $settings->set('bounce.address', $mailpoet_conf_bounce_address);
+								if ( trim($mailpoet_conf['address']) != trim($bounce['address']) ){
+									$mailpoet_conf['address'] = $bounce['address'];
+									Setting::setValue('bounce',$mailpoet_conf);
 								}
 							}
 								
@@ -674,14 +639,20 @@ if(!class_exists('Mailpoet_Bounce_Handler')){
 		} // End of mbh_save_bounce_settings
 
 		/**
-		* Delete all log field
+		* Delete log field
 		*/
-		public function mbh_delete_all_bounce_log()
+		public function mbh_delete_bounce_log()
 		{
-			if(wp_verify_nonce($_POST['nonce'], '_tikweb_mbh_delete_all_logs')){ // Check nonce
+			if(wp_verify_nonce($_POST['nonce'], '_tikweb_mbh_delete_logs')){ // Check nonce
 				global $wpdb;
+				$log_id = $_POST['data'];
+				// echo $log_id;
 				$log_table = $wpdb->prefix . 'bounced_email_logs';
-				$wpdb->query("TRUNCATE table $log_table");
+				$wpdb->query($wpdb->prepare(
+									"DELETE FROM {$log_table} 
+									WHERE id={$log_id}",
+									1
+				));
 			}
 			wp_die();
 		} // End of mbh_delete_bounce_log
@@ -1014,187 +985,125 @@ if(!class_exists('Mailpoet_Bounce_Handler')){
 							}); //end process bounce
 						}); // end #check-bounce-connection click
 
-						
+						$('#bounce-log').dataTable({
+							columnDefs : [
+								{
+									targets: 0,
+									className: 'select-checkbox',
+									orderable: false,
+									defaultContent: "",
+									data: null
+								},
+								{
+									targets: 1,
+									data: 0,
+								},
+								{
+									targets: 2,
+									data: 1,
+								},
+								{
+									targets: 3,
+									data: 2,
+								},
+								{
+									targets: 4,
+									data: 3,
+								},
+								
+							],
+							select: {
+					            style:    'multi',
+					            selector: 'td:first-child'
+					        },
+					        dom: 'lfBrtip',
+					        buttons: [
+			                    { extend: 'selectAll', className: 'hide-if-js' },
+			                    { extend: 'selectNone', className: 'hide-if-js' },
+			                    {
+			                    	text: "<?php _e('Delete', 'bounce-handler-mailpoet'); ?>",
+			                    	className: 'mbh-delete-log disabled',
+			                    }
+			                ],
+							ordering   : true,
+							order : [[1,'asc']],
+							searching  : true,
+							processing : true,
+							serverSide : true,
+							ajax       : {
+								url : "<?php echo admin_url('admin-ajax.php'); ?>",
+								data : function(e){
+									e.action = 'bounce_handler_logs',
+									e.nonce = "<?php echo wp_create_nonce('_mbh_bounce_log_'); ?>"
+								}
+							},
+				            language:{
+					            	info: '<?php _e('Page','bounce-handler-mailpoet');?> _PAGE_ <?php _e('of','bounce-handler-mailpoet');?> _PAGES_',
+					            	zeroRecords:'<?php _e('No logs found','bounce-handler-mailpoet');?> ',
+					            	lengthMenu:' <?php _e('Show','bounce-handler-mailpoet');?> _MENU_ <?php _e('Logs.','bounce-handler-mailpoet');?> ',
+					            	paginate : {
+					            		'previous' : ' <?php _e('Previous','bounce-handler-mailpoet');?> ',
+					            		'next' : ' <?php _e('Next','bounce-handler-mailpoet'); ?> '
+					            	}
+				            	},
+				            'fnInitComplete' : addBouncedReasonFilter
+						});	// log datable config.
 
-						/*
-						* wp data table
-						*/
-						// sorting, pagination problem
-						$('.mailpoet_page_mailpoet_bounce_handling thead a, [data-tab="log-table"] .pagination-links a').each(function(key, val){
-							var href = $(val).attr('href');
-							var newHref = href + '#log-table';
-							$(val).attr('href', newHref);
-						});
-						
-						// single checkbox select and bulk select problem
-						$('body').on('click', '.mailpoet_page_mailpoet_bounce_handling .check-column:not(.manage-column)', function(){
-							if($(this).hasClass('bulk-selected')){
-								$(this).removeClass('bulk-selected');
-							}else{
-								$(this).toggleClass('selected');
-							}
-						});
-						$('body').on('click', '.mailpoet_page_mailpoet_bounce_handling .manage-column.column-cb.check-column', function(){
-							$(this).toggleClass('bulk-selected');
-							$(this).parents('.mailpoet_page_mailpoet_bounce_handling').find('tbody .check-column').toggleClass('bulk-selected').removeClass('selected');
-						});
-
-						// delete action process (single)
-						$('body').on('click', '.bounce-delete', function(){
-							var href = $(this).attr('href');
-							var idIndex = href.indexOf('id=');
-							var tabIndex = href.indexOf('#log-table');
-							var id = href.substring(idIndex+3, tabIndex);
-							var con = confirm("<?php _e('Are you sure you want to delete this item?', 'bounce-handler-mailpoet'); ?>");
-							if(con){
-								var deleteLogData = {
-									'action': 'mbh_delete_log_func',
-									'data'	: id,
-									'nonce'	: '<?php echo wp_create_nonce("_tikweb_mbh_delete_log_func"); ?>'
-								};
-								$.ajax({
-									url 	: '<?php echo admin_url('admin-ajax.php'); ?>',
-									type 	: 'post',
-									data 	: deleteLogData,
-									success : function(response) {
-										console.log(response);
-										location.reload();
-									}
-								})
-							}
-						});
-
-						// bulk delete action process
-						$('body').on('click', '[data-tab="log-table"].mailpoet_panel #doaction, [data-tab="log-table"].mailpoet_panel #doaction2', function(){
-							var con = confirm("<?php _e('Are you sure you want to delete this item?', 'bounce-handler-mailpoet'); ?>");
-							var action = $(this).siblings('#bulk-action-selector-top, #bulk-action-selector-bottom').find(':selected').val();
-							if((action == 'delete') && con) {
-								var bulkLogId = [];
-								$('.mailpoet_page_mailpoet_bounce_handling tbody .selected').each(function(key, val){
-									var id = $(this).find('input').val();
-									bulkLogId.push(id);
-								}),
-								$('.mailpoet_page_mailpoet_bounce_handling tbody .bulk-selected').each(function(key, val){
-									var id = $(this).find('input').val();
-									bulkLogId.push(id);
-								});
-								// console.log(bulkLogId);
-								var deleteLogData = {
-									'action': 'mbh_delete_log_bulk_func',
-									'data'	: bulkLogId,
-									'nonce'	: '<?php echo wp_create_nonce("_tikweb_mbh_delete_log_bulk_func"); ?>'
-								};
-								$.ajax({
-									url 	: '<?php echo admin_url('admin-ajax.php'); ?>',
-									type 	: 'post',
-									data 	: deleteLogData,
-									success : function(response) {
-										console.log(response);
-										location.reload();
-									}
-								});
-							}
-						});
-
-						// all delete action process
-						$('body').on('click', '#delete-all-log', function(){
-							var con = confirm("<?php _e('Are you sure you want to delete all item?', 'bounce-handler-mailpoet'); ?>");
-							if(con){
-								var deleteAllBouce = {
-									'action'	: 'mbh_delete_all_bounce_log',
-									'nonce'		: '<?php echo wp_create_nonce("_tikweb_mbh_delete_all_logs"); ?>'
-								};
-								$.ajax({
-									url: '<?php echo admin_url('admin-ajax.php'); ?>',
-									type: 'post',
-									data: deleteAllBouce,
-									success: function(response){
-										console.log(response);
-										location.reload();
-									}
-								});
-							};
-						});
-
-						// log table filter process
-						$('body').on('click', '#log-filter', function() {
-							var filter = $(this).siblings('#log-filter-select').find(':selected').val();
-							var url = window.location.href;
-							var tabParam = url.indexOf("#log-table");
-							var filterParam = "&filter=" + filter;
-							if( url.indexOf("&search") != -1){
-								var searchParam = url.indexOf("&search");
+						$('body').on('click', 'th .dashicons-marker', function(){
+							$(this).removeClass('dashicons-marker');
+							$(this).addClass('dashicons-dismiss');
+							$(this).parents('#bounce-log_wrapper').find('.dt-buttons .buttons-select-all').click();
+						});// bounce table bulk select
+						$('body').on('click', 'th .dashicons-dismiss', function(){
+							$(this).removeClass('dashicons-dismiss');
+							$(this).addClass('dashicons-marker');
+							$(this).parents('#bounce-log_wrapper').find('.dt-buttons .buttons-select-none').click();
+						}); // bounce table bulk deselect
+						$('body').on('click', 'td.select-checkbox, th[class^="sorting"]', function(){
+							$(this).parents('#bounce-log').find('thead .select-checkbox .dashicons').removeClass('dashicons-dismiss').addClass('dashicons-marker');
+						}); // when click on any selected row or click on any sorting icon at header, all checkbox will deselect
+						$('body').on('click', '.select-checkbox', function(){
+							var selectedItem = $('#bounce-log').find('.selected').length;
+							if(selectedItem>0){
+								$('.mbh-delete-log').removeClass('disabled');
 							} else {
-								var searchParam = tabParam;
+								$('.mbh-delete-log').addClass('disabled');
 							}
-							var newUrl = url.substring(0, searchParam) + filterParam + "#log-table";
-							window.location.href = newUrl;
-						});
-
-						// filter option selected if any
-						
-						var filter = '<?php echo isset($_GET['filter']) ? $_GET['filter'] : ''; ?>';
-						var perPage = '<?php echo isset($_GET['log_per_page']) ? $_GET['log_per_page'] : ''; ?>';
-						var search = '<?php echo isset($_GET['search']) ? $_GET['search'] : ''; ?>';
-						$('#log-filter-select option').each(function(){
-							if($(this).val()==filter){
-								$(this).attr('selected', 'selected');
+						});	// remove disabled class from delete button when any log selected
+						$('body').on('click', 'button.mbh-delete-log', function(){
+							var ids = [];
+							$('#bounce-log').find('.selected').each(function(key, val){
+								var selectedId = $(val).find('td:nth-child(2)').text();
+								ids.push(selectedId);
+							});
+							var con = confirm("<?php _e('Are you sure you want to delete this item?', 'bounce-handler-mailpoet'); ?>");
+							if(con){
+								$('#bounce-log').find('.selected').each(function(key, val){
+									var selectedBounceId = $(val).find('td:nth-child(2)').text();
+									var deleteLogAjaxData = {
+										'action': 'mbh_delete_bounce_log',
+										'data'	: selectedBounceId,
+										'nonce'	: '<?php echo wp_create_nonce("_tikweb_mbh_delete_logs"); ?>'
+									};
+									$.ajax({
+										url: '<?php echo admin_url('admin-ajax.php'); ?>',
+										type: 'post',
+										data: deleteLogAjaxData,
+										success: function(response){
+											$('#bounce-log').DataTable().ajax.reload();
+										}
+									});
+								});
 							}
-						});
-						$('#log-show-per-page-select option').each(function(){
-							if($(this).val()==perPage){
-								$(this).attr('selected', 'selected');
-							}
-						});
-						$('#log-search-input').val(search);
+														
+						}); // delete mailpoet bounce logs		
 
-						// show log per page select process
-						$('body').on('click', '#log-show-per-page', function(){
-							var logPerPage = $(this).siblings('#log-show-per-page-select').find(':selected').val();
-							var url = window.location.href;
-							var tabParam = url.indexOf("#log-table");
-							var logPerPageParam = "&log_per_page=" + logPerPage;
-							var newUrl = url.substring(0, tabParam) + logPerPageParam + "#log-table";
-							window.location.href = newUrl;
-						})
-
-						// search in log table
-						$('[data-tab="log-table"].mailpoet_panel #search-submit').hide().after('<button id="search-submit" class="button"><?php _e('Search', 'bounce-handler-mailpoet'); ?></button>');
-						$('body').on('click', '[data-tab="log-table"].mailpoet_panel #search-submit', function(){
-							var search = $(this).siblings('#log-search-input').val();
-							var url = window.location.href;
-							var tabParam = url.indexOf("#log-table");
-							var searchParam = "&search=" + search;
-							var newUrl = url.substring(0, tabParam) + searchParam + "#log-table";
-							window.location.href = newUrl;
-						});
-						$('[data-tab="log-table"].mailpoet_panel #log-search-input').keypress(function(event) {
-					       	if (event.keyCode == 13) {
-					    		$('[data-tab="log-table"].mailpoet_panel #search-submit').click()
-					       	}
-						});
-						$('[data-tab="log-table"].mailpoet_panel #current-page-selector').keypress(function(event) {
-					       	if (event.keyCode == 13) {
-					    		var url = window.location.href;
-					    		if(url.indexOf('&paged') != -1){
-					    			var beforePaged = url.substring(0, url.indexOf('&paged'));
-					    			var afterPaged = url.substring(url.indexOf('&paged')+8, url.length);
-					    			var findOther = /[&#]/;
-					    			var paged = afterPaged.substring(0, afterPaged.indexOf(afterPaged.match(findOther)));
-					    			var pageNumber = $(this).val();
-					    			var newUrl = beforePaged + '&paged=' + pageNumber + afterPaged;
-					    			window.location.href = newUrl;
-					    		}else{
-					    			var tabParam = url.indexOf("#log-table");
-					    			var pageNumber = $(this).val();
-					    			var pageParam = "&paged=" + pageNumber;
-					    			var newUrl = url.substring(0, tabParam) + pageParam + "#log-table";
-					    			window.location.href = newUrl;
-					    		}
-					       	}
-						});
+						$('#mbh_logs').on('click',function(){
+							$('#bounce-log').DataTable().ajax.reload();
+						}); // reload ajax if click on logs tab from any other tab..
 
 						function addBouncedReasonFilter(){
+
 							var html = '<div class="br_filter" style="clear:both;float:right;">Filter Bounced Reason : <select id="bounced_reason"><option value="">All</option><option value="mailbox_not_available">Mailbox Not Available</option><option value="mailbox_full">Mailbox Full</option><option value="weird_forward">Weird Forward</option><option value="message_delayed">Message Delayed</option></select></div>';
 							
 							var sear = $('div#bounce-log_filter');
@@ -1204,6 +1113,10 @@ if(!class_exists('Mailpoet_Bounce_Handler')){
 						function isEmail(email) {
 						  var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 						  return regex.test(email);
+						}
+
+						function datatableSearch( text ){
+							$('#bounce-log').DataTable().search(text).draw();
 						}
 
 						$('div#bounce-log_wrapper').on('change', $('select#bounced_reason'),function(){
